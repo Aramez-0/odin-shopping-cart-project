@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import './App.css'
+import { Link } from "react-router-dom";
 
 function App() {
 
   return (
     <div id='container'>
       <header>
-        <h1>Shopping site</h1>
+        <Link to='/'><h1>Shopping site</h1></Link>
         <nav>
-          {/* home link 
-          shopping link 
-          cart link  */}
+          <Link to='/shop'>Shop</Link>
+          <Link to='/cart'>Cart</Link>
         </nav>
       </header>
       <main>
@@ -18,7 +18,6 @@ function App() {
       </main>
       <footer>
         <p>Footer. Information maybe</p>
-
       </footer>
     </div>
   )

@@ -1,0 +1,57 @@
+#shop-container {
+    max-width: 1000px;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+#product-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.product-description {
+    height: 100px;
+    overflow: scroll;
+}
+
+.product {
+    background-color: rgb(17, 16, 16);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+}
+
+input {
+    width: 20px;
+}
+
+.num-change {
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    color: green;
+}
+
+#num-change-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.num-change {
+    transform: rotate(-90deg);
+}
+
+.down {
+    transform: rotate(90deg);
+}
+#buy-container {
+    display: flex;
+}
