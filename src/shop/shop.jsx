@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './shop.css'
+import Cart from "../cart/cart";
 
 function Shop() {
     const [products, setProducts] = useState([]);
+    const [amount, setAmount] = useState([])
+    const [items, setItems] = useState([])
+
+  function newItem(title, amount) {
+    items.push({title: title, amount: amount})
+  }
+
+  useEffect(() => {
+    
+  }, [items])
 
   useEffect(() => {
     const dataFetch = async () => {
@@ -15,6 +26,7 @@ function Shop() {
 
         const fetchedProducts = await Promise.all(productPromises);
         setProducts(fetchedProducts);
+        setAmount(new Array(fetchedProducts.length).fill(1)); // Initialize the amount array
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -22,6 +34,35 @@ function Shop() {
 
     dataFetch();
   }, []); 
+
+  function handleAmountChange(index, newAmount) {
+    setAmount(prevAmount => {
+      const newAmountArray = [...prevAmount];
+      newAmountArray[index] = newAmount;
+      return newAmountArray;
+    });
+  }
+
+  // Handle increment and decrement buttons
+  function increment(index) {
+    setAmount(prevAmount => {
+      const newAmountArray = [...prevAmount];
+      newAmountArray[index] += 1;
+      return newAmountArray;
+    });
+  }
+
+  function decrement(index) {
+    setAmount(prevAmount => {
+      const newAmountArray = [...prevAmount];
+      newAmountArray[index] = Math.max(newAmountArray[index] - 1, 1); // Prevent negative amounts
+      return newAmountArray;
+    });
+  }
+
+  function buy(title) {
+
+  }
 
   return (
     <div id='shop-container'>
@@ -43,11 +84,11 @@ function Shop() {
                   <p className="product-description">{product.description}</p>
                   <p>Price: ${product.price}</p>
                   <div id="buy-container">
-                      <button type="button">Add to cart</button>
-                      <input type="text" />
+                      <button type="button" onClick={() => newItem(product.title, amount[index])}>Add to cart</button>
+                      <input type="text" value={amount[index]} onChange={(e) => handleAmountChange(index, parseInt(e.target.value) || 0)}/>
                       <div id="num-change-container">
-                          <button type="button" className="num-change">></button>
-                          <button type="button" className="num-change down">></button>
+                          <button type="button" className="num-change" onClick={() => increment(index)}>></button>
+                          <button type="button" className="num-change down" onClick={() => decrement(index)}>></button>
                       </div>
                   </div>
                 </div>
